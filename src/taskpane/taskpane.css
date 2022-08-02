@@ -116,13 +116,15 @@ b {
 }
 
 .taskpane__btn {
-    min-width: 200px;
+    width: 200px;
     padding: 4px;
     border-radius: 4px;
     outline: none;
     font-size: 16px;
     font-weight: 500;
-    border: 1px solid #D9D9D9
+    border: 1px solid #D9D9D9 !important;
+    text-align: center;
+    background-color: #f0f0f0;
 }
 
 .taskpane__btn:hover {
@@ -190,7 +192,7 @@ b {
 .select-selected {
     font-size: 12px;
     color: #000;
-    padding: 6px 16px;
+    padding: 4px 16px;
     border: 1px solid #D9D9D9;
     /* border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent; */
     cursor: pointer;
@@ -229,4 +231,14 @@ b {
 
 #app-body div {
     margin-bottom: 0;
+}
+
+select {
+    outline: none;
+}
+
+select:focus {
+    border: none;
+    box-shadow: none;
+    outline: none !important;
 }
