@@ -1,0 +1,85 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đồ án 3</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+    <link rel="stylesheet"
+        href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
+
+    <!-- Template styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="ms-font-m ms-welcome ms-Fabric">
+    <header class="ms-welcome__header ms-bgColor-neutralLighter">
+        <img class="custom__logo" src="../../assets/LogoHust.png" alt="Contoso" title="Contoso" />
+        <h1 class="ms-font-su custom__title">TẠO BÁO CÁO</h1>
+    </header>
+    <section id="sideload-msg" class="ms-welcome__main">
+        <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
+    </section>
+    <!-- Main Code -->
+
+    <main id="app-body" class="ms-welcome__main" style="display: none;">
+        <!-- <button class="ms-Button taskpane__btn" id="create-report">
+            Mẫu Báo Cáo
+        </button><br /> -->
+        <div class="custom-select" style="width:200px;">
+            <select>
+                <option value="0">Mẫu báo cáo</option>
+                <option value="1">Mẫu 1: Công Nhân</option>
+                <option value="2">Mẫu 2: Phân Xưởng</option>
+            </select>
+        </div>
+        <br>
+        <button class="ms-Button taskpane__btn" id="open-dialog">Nhập thông tin</button><br />
+        <button class="ms-Button taskpane__btn" id="connect-db">Lấy dữ liệu</button><br />
+        <button class="ms-Button taskpane__btn" id="clear-table">Xóa worksheet</button><br /><br />
+        <div class="taskpane__note">
+            * Bạn cần Nhập thông tin trước khi Lấy dữ liệu
+        </div>
+
+        <div class="taskpane__error">
+            
+        </div>
+
+
+
+        <!-- Đây là type báo cáo: cá nhân hoặc theo xưởng -->
+        <label for="user-name">Loại báo cáo:</label>
+        <label style="visibility: visible ;" id="user-name"></label><br />
+
+        <!-- Đây là id_productplant -->
+        <!-- Id Phan XUong -->
+        <label for="abc">Phân xưởng:</label>
+        <label style="visibility: visible ;" id="abc"></label><br />
+
+        <!-- Đây là id worker -->
+        <!-- Id Worker -->
+        <label for="id_worker_taskpane">Công nhân:</label>
+        <span style="visibility: visible ;" id="id_worker_taskpane"></span>
+
+        <!-- Đây là time user muốn lấy -->
+        <br>
+        <!-- Time muốn lấy -->
+        <label for="time_taskpane">Thời gian:</label>
+        <span style="visibility: visible ;" id="time_taskpane"></span>
+
+    </main>
+</body>
+
+</html>

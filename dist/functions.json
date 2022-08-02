@@ -1,0 +1,45 @@
+{
+    "functions": [
+        {
+            "description": "Requests the names of the people currently on the International Space Station.\nNote: This function requests data from a hypothetical URL. In practice, replace the URL with a data source for your scenario.",
+            "id": "ADDTHREE",
+            "name": "ADDTHREE",
+            "parameters": [
+                {
+                    "description": "First number.",
+                    "name": "first",
+                    "type": "number"
+                },
+                {
+                    "description": "Second number.",
+                    "name": "second",
+                    "type": "number"
+                },
+                {
+                    "description": "Third number to add. If omitted, third = 0.",
+                    "name": "third",
+                    "optional": true,
+                    "type": "number"
+                }
+            ],
+            "result": {
+                "type": "number"
+            }
+        },
+        {
+            "description": "Calculates the sum of the specified numbers",
+            "id": "ABC",
+            "name": "ABC",
+            "parameters": [
+                {
+                    "description": "number.",
+                    "name": "x",
+                    "type": "number"
+                }
+            ],
+            "result": {
+                "type": "number"
+            }
+        }
+    ]
+}

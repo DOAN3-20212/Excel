@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Dialog for My Office Add-in</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui. -->
+    <link rel="stylesheet"
+        href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+
+    <script type="text/javascript" src="popup.js"></script>
+    <style>
+        li {
+            list-style-type: none;
+        }
+    </style>
+
+</head>
+
+<body style="">
+    <div id="abcd"></div>
+    <h1></h1>
+    <span>Chọn công nhân: </span>
+    <ul id="workerList">
+
+    </ul>
+    <button id="worker-button" class="ms-Button">OK</button>
+</body>
+
+</html>

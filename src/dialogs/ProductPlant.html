@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Thông tin phân xưởng</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui. -->
+    <link rel="stylesheet"
+        href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script>
+        fetch("http://localhost:8080/productplant")
+        .then((res) => res.json())
+        .then(data => {
+            //hiển thị data( danh sách các phân xưởng) ra list
+            console.log(data)
+            for (let i of data) {
+                // console.log($("#productPlantList"))
+                // console.log(i.name)
+                let element = `<li>
+                        <input type="radio" name="productPlantName" id="productPlantItem-${i.id}" value="${i.id}">
+                        <label for="productPlantItem-${i.id}">${i.name}</label>
+                                </li>`
+                // console.log(element)
+                $("#productPlantList").append(element)
+            }
+            // console.log("1")
+        });
+    </script>
+    <style>
+        li {
+            list-style-type: none;
+        }
+    </style>
+
+</head>
+
+<body style="">
+    <div id="test"></div>
+    <span>Chọn phân xưởng: </span>
+    <ul id="productPlantList">
+
+    </ul>
+    <button id="productplant-button" class="ms-Button">OK</button>
+
+    <script type="text/javascript" src="popup.js"></script>
+
+</body>
+
+</html>
