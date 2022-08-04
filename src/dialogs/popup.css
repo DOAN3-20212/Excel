@@ -1,0 +1,74 @@
+#type_report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 0;
+}
+
+.popup__body {
+    margin-bottom: 36px;
+}
+
+.popup__title {
+    color: #000;
+    font-family: roboto;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.popup__btn {
+    border-radius: 24px;
+    font-size: 12px;
+    font-family: roboto;
+    font-weight: 500;
+    min-width: 90px;
+}
+
+ul#time {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+ul#time span {
+    min-width: 200px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+ul#time div {
+    display: flex;
+    align-items: center;
+}
+
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+input[type="date"] {
+    background-color: #007bff;
+    padding: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+
+::-webkit-calendar-picker-indicator {
+    background-color: #ffffff;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+}

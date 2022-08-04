@@ -10,31 +10,35 @@
     <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui. -->
     <link rel="stylesheet"
         href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
-
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        
+        <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="popup.js"></script>
-
-
-
+    <link rel="stylesheet" href="popup.css">
 </head>
 
-<body style="">
+<body>
 
     <!-- Chọn loại báo cáo -->
     <div id="type_report">
-        <p class="ms-font-xl" style="text-transform: uppercase;">Chọn loại báo cáo : </p>
-        <!-- <input type="radio" id="productplantInput" name="type_report" value="">
-        <label for="productplantInput">Báo cáo sản xuất sản phẩm</label><br /> -->
-        <input type="radio" id="workerInput" name="type_report" value="worker">
-        <label for="workerInput">Báo cáo sản xuất công nhân</label>
-        <br />
-        <input type="radio" id="productplantInput" name="type_report" value="productplant">
-        <label for="productplantInput">Báo cáo sản xuất phân xưởng</label><br />
-        <br>
-        <button id="ok-button" class="ms-Button">Xác nhận</button>
+        <p class="ms-font-xl popup__title" style="text-transform: uppercase;">Loại báo cáo </p>
+
+        <div class="popup__body">
+            <span><i class="fa-solid fa-user"></i></span>
+            <input type="radio" id="taskInput" name="type_report" value="task">
+            <label for="taskInput">Báo cáo tiến độ sản xuất</label>
+            <br>
+            <input type="radio" id="workerInput" name="type_report" value="worker">
+            <label for="workerInput">Báo cáo sản xuất công nhân</label>
+            <br>
+            <input type="radio" id="productplantInput" name="type_report" value="productplant">
+            <label for="productplantInput">Báo cáo sản xuất phân xưởng</label>
+        </div>
+        <button id="ok-button" class="ms-Button btn btn-outline-dark popup__btn">Xác nhận</button>
     </div>
 </body>
 

@@ -46,6 +46,7 @@
             <option selected>Mẫu báo cáo</option>
             <option value="1">Mẫu 1 </option>
             <option value="2">Mẫu 2 </option>
+            <option value="3">Mẫu 3 </option>
         </select>
         <br>
         <button class="ms-Button taskpane__btn" id="open-dialog">Nhập thông tin</button><br />
@@ -54,19 +55,17 @@
         <div class="taskpane__note">
             * Bạn cần Nhập thông tin trước khi Lấy dữ liệu
         </div>
-        <br>
-        <br>
-        <br>
-
         <div class="taskpane__error">
-
         </div>
+        <br>
+        <br>
+        <br>
 
 
 
         <!-- Đây là type báo cáo: cá nhân hoặc theo xưởng -->
         <label for="user-name">Loại báo cáo:</label>
-        <label style="visibility: visible ;" id="user-name"></label><br />
+        <label style="visibility: visible ;" id="user-name" data-value=""></label><br />
 
         <!-- Đây là id_productplant -->
         <!-- Id Phan XUong -->
@@ -83,6 +82,10 @@
         <!-- Time muốn lấy -->
         <label for="time_taskpane">Thời gian:</label>
         <span style="visibility: visible ;" id="time_taskpane"></span>
+
+        <!-- Task muốn lấy -->
+        <label for="task_taskpane">Cong viec:</label>
+        <span style="visibility: visible ;" id="task_taskpane"></span>
 
     </main>
     <!-- JavaScript Bundle with Popper -->

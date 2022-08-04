@@ -21,6 +21,10 @@
                 document.getElementById("date-button").onclick = sendTimeToParentPage;
             }
 
+            if (document.getElementById("task-button")) {
+                document.getElementById("task-button").onclick = sendTaskToParentPage;
+            }
+
         });
 
 
@@ -37,7 +41,7 @@
         }
     }
     async function getListUser(value) {
-        await fetch(`http://localhost:8080/productplant/${value}`)
+        await fetch(`http://localhost:8080/productplant/worker/${value}`)
             .then((res) => res.json())
             .then(data => {
                 //hiển thị data( danh sách các phân xưởng) ra list
@@ -56,6 +60,51 @@
             });
     }
 
+    if ($("#taskList").length > 0) {
+        popupTask()
+    }
+    async function popupTask() {
+        const urlParams = new URLSearchParams(location.search);
+        
+        for (const [key, value] of urlParams) {
+            // console.log(`${key}:${value}`);
+            if (key == "id") {
+                await getProductPlantById(value)
+                await getListTask(value)
+                break
+            }
+        }
+    }
+
+    async function getListTask(value) {
+        await fetch(`http://localhost:8080/productplant/task/${value}`)
+            .then((res) => res.json())
+            .then(data => {
+                //hiển thị data( danh sách các phân xưởng) ra list
+                console.log(data)
+                for (let i of data) {
+                    // console.log($("#productPlantList"))
+                    // console.log(i.name)
+                    let element = `<li>
+                        <input type="radio" name="taskName" id="taskItem-${i.id}" value="${i.id}">
+                        <label for="taskItem-${i.id}">${i.name}</label>
+                                </li>`
+                    $("#taskList").append(element)
+                }
+            });
+    }
+
+    async function getProductPlantById(value) {
+        await fetch(`http://localhost:8080/productplant/${value}`)
+            .then((res) => res.json())
+            .then(data => {
+                //hiển thị data( danh sách các phân xưởng) ra list
+                console.log(data)
+                $("#popup__task").text(data[0].name)
+            });
+    }
+
+    
 
 
 
@@ -84,6 +133,11 @@
         const timeValueDialog = document.getElementById("time-input").value;
         const timeValueDialog2 = document.getElementById("time-input2").value;
         Office.context.ui.messageParent(timeValueDialog + " " + timeValueDialog2);
+    }
+
+    function sendTaskToParentPage() {
+        const id_task_dialog = document.querySelector('input[name="taskName"]:checked').value;
+        Office.context.ui.messageParent(id_task_dialog);
     }
     
 

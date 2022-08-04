@@ -12,28 +12,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="popup.css">
 
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
     <script>
         fetch("http://localhost:8080/productplant")
-        .then((res) => res.json())
-        .then(data => {
-            //hiển thị data( danh sách các phân xưởng) ra list
-            console.log(data)
-            for (let i of data) {
-                // console.log($("#productPlantList"))
-                // console.log(i.name)
-                let element = `<li>
+            .then((res) => res.json())
+            .then(data => {
+                //hiển thị data( danh sách các phân xưởng) ra list
+                console.log(data)
+                for (let i of data) {
+                    // console.log($("#productPlantList"))
+                    // console.log(i.name)
+                    let element = `<li>
                         <input type="radio" name="productPlantName" id="productPlantItem-${i.id}" value="${i.id}">
                         <label for="productPlantItem-${i.id}">${i.name}</label>
                                 </li>`
-                // console.log(element)
-                $("#productPlantList").append(element)
-            }
-            // console.log("1")
-        });
+                    // console.log(element)
+                    $("#productPlantList").append(element)
+                }
+                // console.log("1")
+            });
     </script>
     <style>
+        ul {
+            margin-bottom: 24px;
+            margin-right: 48px;
+        }
+
         li {
             list-style-type: none;
         }
@@ -41,13 +49,14 @@
 
 </head>
 
-<body style="">
-    <div id="test"></div>
-    <span>Chọn phân xưởng: </span>
-    <ul id="productPlantList">
+<body>
+    <div id="type_report">
+        <span class="popup__title">Phân xưởng </span>
+        <ul id="productPlantList">
 
-    </ul>
-    <button id="productplant-button" class="ms-Button">OK</button>
+        </ul>
+        <button id="productplant-button" class="ms-Button btn btn-outline-dark popup__btn">Xác nhận</button>
+    </div>
 
     <script type="text/javascript" src="popup.js"></script>
 

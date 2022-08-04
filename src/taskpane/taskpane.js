@@ -278,6 +278,143 @@ async function createReport(type) {
           console.log("Debug info: " + JSON.stringify(error.debugInfo));
         }
       });
+  } else {
+    await clearTable()
+
+    await Excel.run(async (context) => {
+      //lấy worksheet đang làm việc hiện tại
+      const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+
+      //xóa đường grid lines
+      // currentWorksheet.showGridlines = false
+
+      //tên công ty
+      let nameCompanyRange = currentWorksheet.getRange("A1:B1")
+      //quốc hiệu
+      let nationalNameRange = currentWorksheet.getRange("E1:H1")
+      //tiêu ngữ
+      let crestRange = currentWorksheet.getRange("E2:H2")
+      //tên báo cáo
+      let reportNameRange = currentWorksheet.getRange("B5:G6")
+      //date
+      let dateRange = currentWorksheet.getRange("A2:C2")
+
+      let date = new Date()
+      let dateValue = `Ngày ${date.getDate()} Tháng ${date.getMonth()} Năm ${date.getFullYear()}`
+
+
+
+      nationalNameRange.merge()
+      crestRange.merge()
+      nameCompanyRange.merge()
+      reportNameRange.merge()
+      dateRange.merge()
+
+      let nameCompany = currentWorksheet.getRange("A1")
+      let nationalName = currentWorksheet.getRange("E1")
+      let crest = currentWorksheet.getRange("E2")
+      let reportName = currentWorksheet.getRange("B5")
+
+
+      currentWorksheet.getRange("A2").values = [[`${dateValue}`]]
+
+      nameCompany.values = [["Công ty Rạng Đông"]]
+      nationalName.values = [['Cộng hòa xã hội chủ nghĩa Việt Nam']]
+      crest.values = [['Độc lập - Tự do - Hạnh phúc']]
+      reportName.values = [['BÁO CÁO TIẾN ĐỘ SẢN XUẤT']]
+
+      nationalName.format.horizontalAlignment = "Center"
+      crest.format.horizontalAlignment = "Center"
+      nameCompany.format.horizontalAlignment = "Left"
+      reportName.format.horizontalAlignment = "Center"
+      reportName.format.font.bold = true
+      reportName.format.font.size = 18
+
+      let nameWorker = currentWorksheet.getRange("B9")
+      let codePX = currentWorksheet.getRange("D9")
+
+      let timeStart = currentWorksheet.getRange("B12")
+      let timeEnd = currentWorksheet.getRange("D12")
+      let reporter = currentWorksheet.getRange("D19")
+      let target = currentWorksheet.getRange("F12")
+      let task = currentWorksheet.getRange("B11")
+      let code_task = currentWorksheet.getRange("D11")
+
+      nameWorker.values = [["Phân xưởng:"]]
+      codePX.values = [["Mã PX:"]]
+      target.values = [["Chỉ tiêu SX:"]]
+      task.values = [["Công việc:"]]
+      code_task.values = [["Mã SX:"]]
+
+      timeStart.values = [['Từ ngày:']]
+      timeEnd.values = [['Đến ngày:']]
+      reporter.values = [["Người lập báo cáo"]]
+
+      task.format.horizontalAlignment = "Left"
+      task.format.font.size = 12
+      task.format.font.italic = true
+
+      code_task.format.horizontalAlignment = "Left"
+      code_task.format.font.size = 12
+      code_task.format.font.italic = true
+
+      codePX.format.horizontalAlignment = "Left"
+      codePX.format.font.size = 12
+      codePX.format.font.italic = true
+
+      target.format.horizontalAlignment = "Left"
+      target.format.font.size = 12
+      target.format.font.italic = true
+
+      nameWorker.format.horizontalAlignment = "Left"
+      nameWorker.format.font.size = 12
+      nameWorker.format.font.italic = true
+
+      reporter.format.horizontalAlignment = "Left"
+      reporter.format.font.size = 12
+      reporter.format.font.italic = true
+
+
+
+      timeStart.format.horizontalAlignment = "Left"
+      timeStart.format.font.size = 12
+      timeStart.format.font.italic = true
+
+      timeEnd.format.horizontalAlignment = "Left"
+      timeEnd.format.font.size = 12
+      timeEnd.format.font.italic = true
+
+
+
+
+
+
+      //tạo bảng mới có header sau khi nhân được kết quả
+      const expensesTable = currentWorksheet.tables.add("B15:E15", true /*hasHeaders*/);
+      expensesTable.name = "ReportData";
+      // // TODO2: Queue commands to populate the table with data.
+      expensesTable.getHeaderRowRange().values =
+        [["Ngày", "Chỉ tiêu", "Tổng SP đạt", "Tổng SP lỗi"]];
+
+      expensesTable.getHeaderRowRange().format.fill.color = "#009879";
+      expensesTable.getDataBodyRange().format.fill.color = "#FFFFFF";
+
+      if (Office.context.requirements.isSetSupported("ExcelApi", "1.2")) {
+        currentWorksheet.getUsedRange().format.autofitColumns();
+        currentWorksheet.getUsedRange().format.autofitRows();
+        currentWorksheet.getUsedRange().format.horizontalAlignment = "Center"
+      }
+
+      currentWorksheet.getRange("A2").format.horizontalAlignment = "Left"
+      currentWorksheet.getRange("A2").format.font.italic = true
+      await context.sync();
+    })
+      .catch((error) => {
+        console.log("Error: " + error);
+        if (error instanceof OfficeExtension.Error) {
+          console.log("Debug info: " + JSON.stringify(error.debugInfo));
+        }
+      });
   }
 }
 
@@ -288,6 +425,7 @@ async function connectDB() {
     const id_PX = document.getElementById("abc").innerHTML;
     const time_work = document.getElementById("time_taskpane").innerHTML;
     const type_report = document.getElementById("user-name").innerHTML;
+    const id_task = document.getElementById("task_taskpane").innerHTML;
 
     if (!type_report) {
       document.querySelector(".taskpane__error").innerHTML = "Bạn cần nhập đủ thông tin"
@@ -304,7 +442,10 @@ async function connectDB() {
           return
         }
       } else {
-        return
+        if (!id_PX || !id_task) {
+          document.querySelector(".taskpane__error").innerHTML = "Bạn cần nhập đủ thông tin"
+          return
+        }
       }
     }
     document.querySelector(".taskpane__error").innerHTML = ""
@@ -325,7 +466,7 @@ async function connectDB() {
     await context.sync();
 
     // const RegExp = /^[\{]([a-z]|\-|\_)+[\}]$/
-    const RegExp = /^[\{]([a-z]|[0-9]|\(|\)|\-|\_)+[\}]$/
+    const RegExp = /^[\{]([a-z]|[0-9]|\(|\)|\-|\_|\/)+[\}]$/
     // console.log(ranges.address)
     for (let value of ranges.values) {
       for (let text of value) {
@@ -360,7 +501,7 @@ async function connectDB() {
           result.push(JSON.parse(data))
         }
         );
-    } else {
+    } else if (type_report == "Báo cáo sản xuất phân xưởng") {
       const options = {
         method: 'POST',
         headers: {
@@ -371,6 +512,28 @@ async function connectDB() {
           {
             productplant: id_PX,
             time: time_work,
+            dataClient
+          }
+        )
+      };
+      await fetch('http://localhost:8080/data', options)
+        .then((res) => res.text())
+        .then(data => {
+          console.log("Giá trị Server trả về là : " + data)
+          result.push(JSON.parse(data))
+        }
+        );
+    } else {
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(
+          {
+            productplant: id_PX,
+            task: id_task,
             dataClient
           }
         )
@@ -453,7 +616,7 @@ function openDialog() {
   // TODO1: Call the Office Common API that opens a dialog
   Office.context.ui.displayDialogAsync(
     'https://localhost:3000/popup.html',
-    { height: 45, width: 55 },
+    { height: 32, width: 30 },
 
     // TODO2: Add callback parameter.
     function (result) {
@@ -477,7 +640,7 @@ function processTypeReport(arg) {
   } else if (arg.message == "productplant") {
     document.getElementById("user-name").innerHTML = "Báo cáo sản xuất phân xưởng";
   } else {
-    document.getElementById("user-name").innerHTML = "Báo cáo sản xuất sản phẩm";
+    document.getElementById("user-name").innerHTML = "Báo cáo tiến độ sản xuất";
   }
 
   // console.log("2")
@@ -492,7 +655,7 @@ function processTypeReport(arg) {
 
 function openProductPlantDialog() {
   // console.log("3")
-  Office.context.ui.displayDialogAsync("https://localhost:3000/ProductPlant.html", { width: 50, height: 50 },
+  Office.context.ui.displayDialogAsync("https://localhost:3000/ProductPlant.html", { width: 35, height: 30 },
     (result) => {
 
       // console.log(result)
@@ -533,13 +696,13 @@ function processProductPlantValue(arg) {
     // document.querySelector(".taskpane__error").innerHTML = "test"
     openDateDialog()
   } else {
-    return
+    openTaskDialog()
   }
 }
 
 function openWorkerDialog() {
   let id_productplant = document.getElementById("abc").innerHTML
-  Office.context.ui.displayDialogAsync(`https://localhost:3000/Worker.html?id=${id_productplant}`, { width: 50, height: 50 },
+  Office.context.ui.displayDialogAsync(`https://localhost:3000/Worker.html?id=${id_productplant}`, { width: 30, height: 36 },
     (result) => {
       // console.log(result)
       if (result.status === Office.AsyncResultStatus.Failed) {
@@ -573,7 +736,7 @@ function processWorkerValue(arg) {
 }
 
 function openDateDialog() {
-  Office.context.ui.displayDialogAsync("https://localhost:3000/Date.html?", { width: 50, height: 50 },
+  Office.context.ui.displayDialogAsync("https://localhost:3000/Date.html?", { width: 40, height: 40 },
     (result) => {
 
       console.log("Chạy vào hàm mở dialog 4")
@@ -606,6 +769,37 @@ function processTimeValue(arg) {
 
   // Gọi hàm tạo template báo cáo ở đây
   // createReport()
+}
+
+function openTaskDialog() {
+  let id_productplant = document.getElementById("abc").innerHTML
+  Office.context.ui.displayDialogAsync(`https://localhost:3000/task.html?id=${id_productplant}`, { width: 30, height: 36 },
+    (result) => {
+      // console.log(result)
+      if (result.status === Office.AsyncResultStatus.Failed) {
+        if (result.error.code === 12007) {
+          // console.log("Dialog 1 chưa đóng hẳn")
+          openTaskDialog(); // Recursive call
+        }
+        else {
+          // Handle other errors
+          console.log("Lỗi gì đó ở Dialog Worker")
+          openTaskDialog(); // Recursive call
+        }
+      }
+
+      dialog = result.value;
+      dialog.addEventHandler(Office.EventType.DialogMessageReceived, processTaskValue);
+      console.log("Nhận event Dialog Worker")
+
+    }
+  );
+}
+
+function processTaskValue(arg) {
+  console.log(arg.message)
+  document.getElementById("task_taskpane").innerHTML = arg.message
+  dialog.close()
 }
 
 

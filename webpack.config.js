@@ -119,6 +119,11 @@ module.exports = async (env, options) => {
         filename: "Date.html",
         template: "./src/dialogs/Date.html",
         chunks: ["polyfill", "popup"]
+      }),
+      new HtmlWebpackPlugin({
+        filename: "task.html",
+        template: "./src/dialogs/task.html",
+        chunks: ["polyfill", "popup"]
       })
     ],
     devServer: {
